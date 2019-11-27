@@ -861,8 +861,9 @@ exports.getProcurements = async (req, res, next) => {
     let offset = (page - 1) * ITEMS_BY_PAGE;
 
     try {
+        const limit = parseInt(ITEMS_BY_PAGE);
         totalProcurements = await Procurement.count();
-        const procurements = await Procurement.fetchAllActive(ITEMS_BY_PAGE, offset);
+        const procurements = await Procurement.fetchAllActive(limit, offset);
 
 
         res.render('admin/procurements', {

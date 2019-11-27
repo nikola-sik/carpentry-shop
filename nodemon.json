@@ -8,10 +8,10 @@
         "SHOP_EMAIL": "stolarska.radnja.sikanjic@test.com",
         "ADDRESS": "Jošavka Donja 78244 BB, Čelinac, BIH",
         
-        "host": "localhost",
-        "MYSQL_USER": "root",
-        "DATABASE_NAME": "carpentry_shop",
-        "MYSQL_PASSWORD": "student",
+        "HOST": "remotemysql.com",
+        "MYSQL_USER": "dVfTCKh0ea",
+        "DATABASE_NAME": "dVfTCKh0ea",
+        "MYSQL_PASSWORD": "MID1Hz1K7M",
 
         "SEND_GRID_KEY": "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",
 
