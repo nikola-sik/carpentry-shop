@@ -15,7 +15,7 @@
         <input id="search_submit" value="pretraga" type="submit">
       </form>
     </div>
-
+    <% } %>
     <form class="message-form" action="/admin/new-message" method="POST">
       <div class="form-control ">
         <div class="recipient-box">
@@ -33,7 +33,7 @@
 
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     </form>
-
+    <% if (messages.length > 0) { %>
     <hr>
     <ul class="message-list">
 
