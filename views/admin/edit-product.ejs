@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+        <div class="korisnik-poruka korisnik-poruka-greska"><%= errorMessage %> </div>
+        <% } %>
+
+        <form class="product-form" action="/admin/edit-product" method="POST" enctype="multipart/form-data">
+            <div class="form-control">
+                <label for="title">Naziv</label>
+                <input class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid':'' %>" type="text"
+                    name="title" id="title" maxlength="43" value="<%= product.title %>" required>
+            </div>
+            <div class="form-control">
+                <label for="image">Slika</label>
+                <input type="file" name="image" id="image">
+
+            </div>
+
+            <div class="form-control">
+                <label for="shortDescription">Kratak opis</label>
+                <textarea class="<%= validationErrors.find(e => e.param === 'shortDescription') ? 'invalid':'' %>"
+                    rows="5" name="shortDescription" id="shortDescription" maxlength="448"
+                    required><%= product.shortDescription %></textarea>
+            </div>
+
+            <div class="form-control">
+                <label for="description">Detaljni opis</label>
+                <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid':'' %>" rows="5"
+                    name="description" id="description" maxlength="3998" required><%= product.description %></textarea>
+            </div>
+            <div class="form-control">
+                <label for="price">Cijena</label>
+                <input class="<%= validationErrors.find(e => e.param === 'price') ? 'invalid':'' %>" type="number"
+                    name="price" id="price" min="0" step="0.01" value="<%= product.price %>" required>
+            </div>
+
+            <button class="btn" type="submit">Sačuvaj</button>
+            <input name="productId" type="hidden" value="<%= product.id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+    </main>
+    <%- include('../includes/footer.ejs') %>

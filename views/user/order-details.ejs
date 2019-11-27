@@ -1,0 +1,71 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main class="centered">
+
+        <h1><%= order.title %></h1>
+        <hr>
+        <% if (order.items.length > 0) { %>
+
+        <ul class="order-item__list">
+            <h2>Stavke narudžbe:</h2>
+            <% order.items.forEach(p => { %>
+
+
+            <li class="order-item--flex" id="item_<%= p.id %>">
+
+                <div class="card__image-item">
+                    <img src="<%= p.imageUrl %>" alt="">
+                </div>
+                <div class="order-item__title">
+                    <h1><%= p.title %></h1>
+                </div>
+
+
+
+
+                <div class="btn-box">
+                    <div class="quantity" id="quantity_<%= p.id %>">Količina: <%= p.quantity %>
+
+                        <a class="btn btn-corner" href="/user/order-item-details/<%= p.id %>">Detalji</a>
+
+                    </div>
+                </div>
+
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+        <div class="centered">
+            <div class="product__price">
+                <h3>Ukupna cijena: <%= order.totalPrice %> KM</h3>
+            </div>
+        </div>
+
+
+        
+        <h2>Status narudžbe: <%= order.status %></h2>
+
+        <% if (order.status == 'odbijena') { %>
+        <h4>Razlog odbijanja narudžbe: <%= order.reasonForRefusal %></h4>
+        <% } %>
+        <h3>Opis: </h3>
+        <p class="details--description"><%= order.description %></p>
+        <% if (order.status != 'odobrena') { %>
+        <form action="/user/delete-order" method="POST">
+            <button class="btn-cancel" type="submit"
+                onclick="return confirm('Jeste li sigurni da želite izbrisati narudzbu ?');">Izbriši</button>
+            <input name="orderId" type="hidden" value="<%= order.id %>">
+            <input name="status" type="hidden" value="<%= order.status %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+
+        <% } %>
+    </main>  
+    <%- include('../includes/footer.ejs') %>

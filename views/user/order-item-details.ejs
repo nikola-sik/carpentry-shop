@@ -1,0 +1,23 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main class="centered">
+
+    <h1><%= item.title %></h1>
+    <hr>
+    <div>
+      <div class="card__image">
+        <img src="<%= item.imageUrl %>" alt="">
+      </div>
+    </div>
+    <h2><%= item.price %> KM</h2>
+    <p class="details--description"><%= item.description %></p>
+
+
+  </main>
+  <%- include('../includes/footer.ejs') %>

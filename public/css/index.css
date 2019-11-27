@@ -1,0 +1,120 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.furniture {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: rgb(235, 208, 175);
+}
+
+.exterior {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content:stretch;
+  align-items: stretch;
+  background: rgb(192, 224, 192);
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+
+  background: rgb(192, 214, 224);
+}
+
+
+
+.print {
+  max-width: 100%;
+  margin: auto;
+  margin-left: 30px;
+}
+
+.print h1{
+  font-size: 30px;
+}
+.print h2{
+  font-size: 20px;
+}
+
+.print__exterior {
+  margin: auto;
+  max-width: 100%;
+  word-wrap: break-word;
+  margin-left: 30px;
+  
+}
+.print__exterior h1{
+  font-size: 30px;
+}
+
+
+.image{
+  max-height: 30rem;
+  max-width: 100%;
+}
+
+.image-exterior{
+  max-height: 30rem;
+  max-width: 100%;
+}
+
+.main-index {
+  padding: 0px;
+  padding-bottom: 11rem;
+}
+
+body{
+  
+  background: rgb(192, 224, 192);
+}
+
+h1 {
+  font-size: 50px;
+}
+
+
+
+@media (max-width: 1150px) {
+
+.image {
+    max-height: 30rem;
+    width: 100%;
+  }
+
+}
+
+@media (min-width: 805px) {
+  .print {
+    max-width: 50%;
+    margin: auto;
+  }
+  
+  .print h1{
+    font-size: 50px;
+  }
+  .print h2{
+    font-size: 30px;
+  }
+
+  .print__exterior {
+    max-width: 35%;
+    margin: auto;
+    word-wrap: break-word;
+    
+  }
+ 
+
+  .print__exterior h1{
+    font-size: 60px;
+  }
+  
+
+  }

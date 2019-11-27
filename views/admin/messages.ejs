@@ -1,0 +1,86 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/message.css">
+<link rel="stylesheet" href="/css/search.css">
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+
+    <% if (messages.length > 0) { %>
+    <div id="wrap">
+      <form action="/admin/messages" method="get">
+        <input id="search" name="search" type="text" maxlength="40" placeholder="Korisničko ime..." required>
+        <input id="search_submit" value="pretraga" type="submit">
+      </form>
+    </div>
+
+    <form class="message-form" action="/admin/new-message" method="POST">
+      <div class="form-control ">
+        <div class="recipient-box">
+          <h3 class="recipient">Primalac</h3>
+          <select class="select-css " name="recipient">
+            <% users.forEach(k => { %>
+            <option value="<%= k.username %>"><%= k.username %></option>
+            <% }) %>
+          </select>
+        </div>
+        <textarea class="message__text" placeholder="Nova poruka..." rows="5" name="text" id="text" maxlength="448"
+          required></textarea>
+      </div>
+      <button class="btn-send" type="submit" title="Pošalji poruku"></button>
+
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    </form>
+
+    <hr>
+    <ul class="message-list">
+
+      <% messages.forEach(p => { %>
+
+
+      <li class="message" id="messages_<%= p.sender %>">
+        <div class="flex-items">
+
+          <div class="message__time">
+            <h2>Poruke korisnika: <%= p.sender %></h1>
+              <% if(p.numberOfUnreaded > 0) { %>
+              <h4 class="print-red">Nepročitane <%= p.numberOfUnreaded %></h4>
+              <% } %>
+              <hr>
+          </div>
+
+        </div>
+
+
+
+        <div class="btn-box">
+          <form action="/admin/user-messages/<%= p.sender %>" method="GET">
+            <button class="btn" type="submit">Prikaži poruke</button>
+
+          </form>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+
+          <button class="btn-delete btn-corner" type="submit" title="Izbriši sve poruke korisnika"
+            onclick="if (confirm('Jeste li sigurni da želite izbrisati sve poruke korisnika ?')) deleteAllMessagesOfUser(this,'<%= p.sender %>');"></button>
+
+        </div>
+
+
+
+      </li>
+
+
+      <% }) %>
+    </ul>
+    <% } else { %>
+      <h1 class="centered">Nema poruka.</h1>
+      <% } %>
+
+  </main>
+
+
+  <script src="/js/admin.js"></script>
+  <%- include('../includes/footer.ejs') %>

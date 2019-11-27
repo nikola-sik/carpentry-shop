@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } %>
+        <form class="product-form" action="/admin/new-procurement-item" method="POST">
+            <div class="form-control">
+                <label for="title">Naziv</label>
+                <input class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid':'' %>" type="text"
+                    name="title" id="title" maxlength="43" required value="<%= oldInput.title %>">
+            </div>
+
+            <div class="form-control">
+                <label for="description">Kratak opis</label>
+                <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid':'' %>" rows="5"
+                    name="description" id="description" maxlength="200" required><%= oldInput.description %></textarea>
+            </div>
+
+            <div class="form-control">
+                <label for="quantity">Količina</label>
+
+                <input class="<%= validationErrors.find(e => e.param === 'quantity') ? 'invalid':'' %>" type="number"
+                    name="quantity" id="quantity" min="1" value="<%= oldInput.quantity %>" required>
+            </div>
+
+            <button class="btn" type="submit">Dodaj u nabavku</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+    </main>
+     <%- include('../includes/footer.ejs') %>

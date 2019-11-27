@@ -1,0 +1,69 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/users.css">
+<link rel="stylesheet" href="/css/search.css">
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+
+
+    <% if (users.length > 0) { %>
+      <div id="wrap">
+        <form action="/admin/users" method="get">
+          <input id="search" name="search" type="text" maxlength="40" placeholder="Korisničko ime..." required>
+          <input id="search_submit" value="pretraga" type="submit">
+        </form>
+      </div>
+    <table id="table_of_users">
+      <thead>
+        <tr>
+          <th>Korsničko ime</th>
+          <th>Email</th>
+          <th>Ime</th>
+          <th>Prezime</th>
+          <th>Broj telefona</th>
+          <th>Aktivan</th>
+          <th>Brisanje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(k => { %>
+        <tr id="user<%= k.id %>">
+          <td><%= k.username %></td>
+          <td><%= k.email %></td>
+          <td><%= k.name %> &nbsp</td>
+          <td><%= k.surname %> &nbsp</td>
+          <td><%= k.phoneNumber %> &nbsp</td>
+          <td>
+            <button id="btn_checkbox_<%= k.id %>" class="checkbox_<%= k.active == 1 ? 'active' : 'empty' %>"
+              type="submit" title="Promjena statusa korisnika"
+              onclick="if (confirm('Jeste li sigurni da želite promjeniti status korisnika ?')) changeUserActive(this,'<%= k.id %>');"></button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+          </td>
+          <td>
+
+            <button class="btn_delete" type="submit" title="Brisanje korisnika"
+              onclick="if (confirm('Jeste li sigurni da želite izbrisati korisnika ?')) deleteUser(this,'<%= k.id %>');"></button>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+
+      </tbody>
+    </table>
+    <%- include('../includes/pagination.ejs',{currentPage:currentPage, nextPage:nextPage, previousPage:previousPage, hasNext:hasNext, hasPreviousPage:hasPreviousPage, lastPage:lastPage}) %>
+
+    <% } else { %>
+    <h1 class="centered">Nema registrovanih korisnika.</h1>
+    <% } %>
+
+
+  </main>
+
+  <script src="/js/admin.js"></script>
+  <%- include('../includes/footer.ejs') %>

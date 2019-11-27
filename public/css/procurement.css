@@ -1,0 +1,101 @@
+.procurements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.procurements__item h1 {
+    margin: 0;
+    font-size: 1rem;
+   
+}
+
+.procurements__item {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  margin-bottom: 1rem;
+ background-color: white;
+}
+
+.procurements__product {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.procurements__product-item {
+  display: block;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid #105F6C;
+    color: #105F6C;
+    overflow-wrap: break-word;
+}
+
+
+.procurement-form {
+  width: 40rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}
+
+.procurement-item {
+  width: 20rem;
+  max-width: 95%;
+  margin: 1rem;
+  
+}
+
+.procurement-item__header {
+   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content:center;
+  overflow-wrap: break-word;
+}
+.procurement-header__block{
+  min-width: 0;
+}
+
+.procurement__title {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.procurement__price {
+  text-align: center;
+  
+  margin-bottom: 0.5rem;
+}
+
+.procurement__description {
+  text-align: center;
+ 
+}
+
+.procurement__date {
+  text-align: center;
+ 
+}
+.procurement__date-of-delivery {
+  text-align: center;
+  
+  margin-bottom: 0.5rem;
+ 
+}
+
+.procurement__status {
+  text-align: center;
+  color: #4d4d4d;
+  margin-bottom: 0.5rem;
+}
+.procurement__user {
+  text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+
+

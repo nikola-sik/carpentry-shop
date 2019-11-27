@@ -1,0 +1,166 @@
+<div class="backdrop"></div>
+
+<header class="main-header">
+        <button id="side-menu-toggle">Meni</button>
+    <div class="logo">
+    </div>
+       
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Početna</a>
+            </li>
+            <% if(!isAdmin) { %>
+            <li class="main-header__item">
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Proizvodi</a>
+            </li>
+            <% if(isLoggedIn) { %>
+            <li class="main-header__item">
+                <a class="<%= path === '/user/new-order' ? 'active' : '' %>" href="/user/new-order">Nova Narudžba</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/user/orders' ? 'active' : '' %>" href="/user/orders">Vaše Narudžbe</a>
+            </li>
+            <li class="main-header__item">
+                <a id="user_messages" class="<%= path === '/user/messages' ? 'active' : ''  %>  <%= numberOfUnreaded > 0 ? 'unreaded' : '' %>" href="/user/messages">Poruke <%= numberOfUnreaded > 0 ? numberOfUnreaded : '' %></a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/user/my-account' ? 'active' : ''  %>" href="/user/my-account">Moj nalog</a>
+            </li>
+            <% } %>
+            <% } else  if(isAdmin) { %>
+
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Dodaj Proizvod
+                </a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Proizvodi
+                </a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path.includes('/admin/order') ? 'active' : '' %>" href="/admin/orders">Narudžbe
+                </a>
+            </li>
+           
+            <li class="main-header__item">
+                <a id="admin_messages" class="<%= path === '/admin/messages' ? 'active' : '' %> <%= numberOfUnreaded > 0 ? 'unreaded' : '' %>" href="/admin/messages">Poruke <%= numberOfUnreaded > 0 ? numberOfUnreaded : '' %></a>
+            </li>
+             <li class="main-header__item">
+                <a class="<%= path === '/admin/users' ? 'active' : '' %>" href="/admin/users">Korisnici
+                </a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/my-account' ? 'active' : ''  %>" href="/admin/my-account">Moj nalog</a>
+            </li>
+
+            <li class="main-header__item">
+                    <a class="<%= path === '/admin/procurements' ? 'active' : ''  %>" href="/admin/procurements">Nabavke</a>
+                </li>
+              <% } %>
+        </ul>
+
+        <ul class="main-header__item-list  no-right-margin" >
+                <% if(!isLoggedIn) { %>
+            <li class="main-header__item">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Prijava
+                </a>
+            </li>
+            
+            <li class="main-header__item">
+                <a class="<%= path === '/registration' ? 'active' : '' %>" href="/registration">Registracija
+                </a>
+            </li>
+            <% } else { %>
+            <li class="main-header__item">
+                <form action="/logout" method="POST">
+                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                    <button type="submit" >Odjava</button>
+                </form>
+                </li>
+            <% } %>
+        
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+        <ul class="mobile-nav__item-list">
+
+                   <li class="mobile-nav__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Početna</a>
+            </li>
+            <% if(!isAdmin) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Proizvodi</a>
+            </li>
+            <% if(isLoggedIn) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/user/new-order' ? 'active' : '' %>" href="/user/new-order">Nova Narudžba</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/user/orders' ? 'active' : '' %>" href="/user/orders">Narudžbe</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a id="user_messages_mobile" class="<%= path === '/user/messages' ? 'active' : '' %> <%= numberOfUnreaded > 0 ? 'unreaded' : '' %>" href="/user/messages">Poruke <%= numberOfUnreaded > 0 ? numberOfUnreaded : '' %></a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/user/my-account' ? 'active' : ''  %>" href="/user/my-account">Moj nalog</a>
+            </li>
+            <% } %>
+            <% } else  if(isAdmin)  { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Dodaj Proizvod
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Proizvodi</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path.includes('/admin/order') ? 'active' : '' %>" href="/admin/orders">Narudžbe
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a id="admin_messages_mobile" class="<%= path === '/admin/messages' ? 'active' : '' %> <%= numberOfUnreaded > 0 ? 'unreaded' : '' %>" href="/admin/messages">Poruke <%= numberOfUnreaded > 0 ? numberOfUnreaded : '' %>
+                </a>
+            </li>
+             <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/users' ? 'active' : '' %>" href="/admin/users">Korisnici
+                </a>
+            </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/admin/my-account' ? 'active' : ''  %>" href="/admin/my-account">Moj nalog</a>
+                </li>
+           
+
+            <li class="mobile-nav__item">
+                    <a class="<%= path === '/admin/procurements' ? 'active' : ''  %>" href="/admin/procurements">Nabavke</a>
+                </li>
+
+            <% } %>
+            <% if(!isLoggedIn) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Prijava
+                </a>
+            </li>
+            
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/registration' ? 'active' : '' %>" href="/registration">Registracija
+                </a>
+            </li>
+            <% } else { %>
+                <li class="mobile-nav__item">
+            <form action="/logout" method="POST">
+        
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" >Odjava</button>
+            </form>
+         </li>
+            <% } %>
+            
+
+            </ul>
+</nav>
+
+<div class="page-container">

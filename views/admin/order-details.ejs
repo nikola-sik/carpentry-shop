@@ -1,0 +1,124 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main class="centered">
+
+
+
+
+
+        <% if (order.items.length > 0) { %>
+            <h1 class="details--title"><%= order.title %></h1>
+        <hr>
+        <ul class="order-item__list">
+            <h2>Stavke narudžbe:</h2>
+            <% order.items.forEach(p => { %>
+
+
+            <li class="order-item--flex" id="item_<%= p.id %>">
+
+                <div class="card__image-item">
+                    <img src="<%= p.imageUrl %>" alt="">
+                </div>
+                <div class="order-item__title">
+                    <h1><%= p.title %></h1>
+                </div>
+
+
+                <div class="btn-box">
+                    <div class="quantity" id="quantity_<%= p.id %>">Količina: <%= p.quantity %>
+
+                        <a class="btn btn-corner" href="/admin/order-item-details/<%= p.id %>">Detalji</a>
+
+                    </div>
+                </div>
+
+            </li>
+            <% }) %>
+        </ul>
+        <div class="centered">
+            <div class="product__price">
+                <h3>Ukupna cijena: <%= order.totalPrice %> KM</h3>
+            </div>
+        </div>
+
+
+        <h3>Opis: </h3>
+        <p class="details--description"><%= order.description %></p>
+        <hr>
+
+        <% if (order.status === "u obradi") { %>
+        <div class="flex-items">
+            <form action="/admin/change-order-status" method="POST">
+                <button class="btn" type="submit"
+                    onclick="return confirm('Jeste li sigurni da želite prihvatiti narudžbu ?');">Prihvatiti</button>
+                <input name="orderId" type="hidden" value="<%= order.id %>">
+                <input name="status" type="hidden" value="odobrena">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+            <form action="/admin/change-order-status" method="POST">
+                <div class="grid">
+                    <button class="btn-cancel ne-prihvatiti" type="submit"
+                        onclick="return confirm('Jeste li sigurni da ne želite prihvatiti narudžbu ?');">Ne
+                        Prihvatiti</button>
+                    <input name="orderId" type="hidden" value="<%= order.id %>">
+                    <input name="status" type="hidden" value="odbijena">
+                    <div class="form-control">
+                        <label for="reasonForRefusal">Unesite razlog odbijanja narudžbe:</label>
+                        <textarea class="reason-for-refusal" rows="5" name="reasonForRefusal" id="reasonForRefusal" maxlength="448"
+                            required></textarea>
+
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <% } else if (order.status === "odobrena") { %>
+
+        <div class="grid">
+            <form action="/admin/change-order-status" method="POST">
+
+                <button class="btn" type="submit"
+                    onclick="return confirm('Jeste li sigurni da želite označiti kao završenu narudžbu ?');">Označi kao
+                    završenu</button>
+                <input name="orderId" type="hidden" value="<%= order.id %>">
+                <input name="status" type="hidden" value="realizovana">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+            <a class="btn" href="/admin/invoice/<%= order.id %>">Preuzmi Fakturu</a>
+        </div>
+        <% } else if (order.status === "odbijena") { %>
+
+        <form action="/admin/delete-order" method="POST">
+            <button class="btn-cancel" type="submit"
+                onclick="return confirm('Jeste li sigurni da želite izbrisati narudzbu ?');">Izbriši</button>
+            <input name="orderId" type="hidden" value="<%= order.id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+        <% } else if (order.status === "realizovana") { %>
+        <div class="grid"> <a class="btn" href="/admin/invoice/<%= order.id %>">Preuzmi Fakturu</a>
+            <form action="/admin/delete-order" method="POST">
+                <button class="btn-cancel" type="submit"
+                    onclick="return confirm('Jeste li sigurni da želite izbrisati narudžbu ?');">Izbriši</button>
+                <input name="orderId" type="hidden" value="<%= order.id %>">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+        </div>
+        <% } %>
+
+        <% } else { %>
+        <h1>Nema stavki u narudžbi.</h1>
+
+        <% } %>
+
+
+
+    </main>
+    <%- include('../includes/footer.ejs') %>

@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/procurement.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <div class="card__actions">
+            <a class="btn" href="/admin/new-procurement">Dodaj Novu Nabavku</a>
+        </div>
+
+        <% if (procurements.length <= 0) { %>
+        <h1 class="centered">Nemate kreiranih nabavki.</h1>
+        <% } else { %>
+        <ul class="procurements">
+            <% procurements.forEach(procurement => { %>
+            <li class="procurements__item">
+                <div class="procurement-item__header">
+                    <div class="procurement-header__block">
+                        <h1 >Nabavka - <%= procurement.title %> </h1>
+                    </div>
+                    <h1> Datum kreiranja: <%= procurement.date %> </h1>
+                    <div class="procurement-header__block">
+                        <h1> Dobavljač: <%= procurement.supplier %>
+                    </div>
+                    </h1>
+
+                    <a class="btn" href="/admin/procurement-details/<%= procurement._id %>">Detalji</a>
+
+                </div>
+                <ul class="procurements__product">
+                    <% procurement.items.forEach(s => { %>
+                    <li class="procurements__product-item"><%= s.title %> (<%= s.quantity %>)</li>
+                    <% }); %>
+                </ul>
+            </li>
+            <% }); %>
+        </ul>
+        <%- include('../includes/pagination.ejs',{currentPage:currentPage, nextPage:nextPage, previousPage:previousPage, hasNext:hasNext, hasPreviousPage:hasPreviousPage, lastPage:lastPage}) %>
+
+        <% } %>
+
+    </main>
+    <%- include('../includes/footer.ejs') %>

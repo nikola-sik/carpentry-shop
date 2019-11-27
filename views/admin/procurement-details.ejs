@@ -1,0 +1,61 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main class="centered">
+
+    <h1 class="procurement-title"><%= procurement.title %></h1>
+    <hr>
+    <% if (procurement.items.length > 0) { %>
+
+    <ul class="procurement-item__list">
+      <h2>Stavke nabavke:</h2>
+      <% procurement.items.forEach(p => { %>
+
+
+      <li class="procurement-item--flex" id="item_<%= p.id %>">
+
+
+        <div class="procurement-item__title">
+          <h1 class="details--title"><%= p.title %></h1>
+        </div>
+        <div class="procurement-item__description">
+          <%= p.description %>
+        </div>
+
+        <div id="quantity_<%= p.id %>">Količina: <%= p.quantity %>
+
+        </div>
+
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+    <div class="centered">
+      <div>
+        <h3>Ukupna cijena: <%= procurement.price %> KM</h3>
+      </div>
+    </div>
+    <h2 class="details--title">Dobavljač: <%= procurement.supplier %></h2>
+    <h2>Datum kreiranja: <%= procurement.date %></h2>
+    <h3>Opis: </h3>
+    <p class="details--description"><%= procurement.description %></p>
+
+
+
+    <form action="/admin/delete-procurement" method="POST">
+      <button class="btn-cancel" type="submit"
+        onclick="return confirm('Jeste li sigurni da želite izbrisati nabavku ?');">Izbriši</button>
+      <input name="procurementId" type="hidden" value="<%= procurement._id %>">
+
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    </form>
+
+
+  </main>
+  <%- include('../includes/footer.ejs') %>

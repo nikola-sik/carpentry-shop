@@ -1,0 +1,42 @@
+.form-control {
+  margin: 1rem 0;
+}
+
+.form-control label{
+  font-size: 20px;
+  font-weight: 500;
+  color: #105F6C;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.form-control input,
+.form-control textarea {
+  border: 1px solid #a1a1a1;
+  
+  font: inherit;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+
+.form-control input {
+  height: 30px;
+}
+
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline-color: #105F6C;
+ 
+}
+
+.form-control input.invalid,
+.form-control textarea.invalid {
+  border-color: red;
+}

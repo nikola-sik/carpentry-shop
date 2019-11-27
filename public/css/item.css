@@ -1,0 +1,164 @@
+.order-item__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: auto;
+  width: 40rem;
+  max-width: 90%;
+
+}
+
+.order-item {
+  display: flex;
+  flex-wrap: wrap;
+ align-items: stretch;
+ align-content: stretch;
+ justify-content: space-between; 
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin-bottom: 1rem;
+  overflow-wrap:break-word;
+  background-color: white;
+ 
+}
+
+.order-item--flex{
+  display: block;
+  flex-wrap: wrap;
+ align-items: center;
+ align-content: space-between;
+ justify-content: space-between; 
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin-bottom: 1rem;
+  overflow-wrap:break-word;
+background-color: white;
+}
+
+.order-item__title {
+
+min-width: 0;
+padding-bottom: 1rem;
+}
+
+.procurement-item__description {
+
+  min-width: 0;
+ 
+  padding-left: 1rem;
+  padding-right: 1rem;
+  }
+  
+  .procurement-item__description--bottom{
+
+    min-width: 0;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    }
+
+.reason-for-refusal {
+  width: 15rem;
+}
+
+
+.ne-prihvatiti{
+  margin-top: 2rem;
+  height:35px ;
+
+}
+
+.order-item h1,
+.order-item h2,
+.order-item--flex h1,
+.order-item--flex h2{
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  margin: 0;
+  
+}
+
+
+.item__title {
+  flex: 0 0 66%; /* default 0 */
+  align-content: center;
+
+}
+
+.item__quantity {
+/*  flex: 0 0 20%;  default 0 */
+/* color: #302f2f; */
+font-size: 18px;
+}
+
+.btn-box {
+  position:relative;
+  width: 100%;
+}
+.btn-corner {
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+
+
+
+.procurement-item__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: auto;
+  width: 40rem;
+  max-width: 90%;
+
+}
+
+.procurement-item {
+  display: flex;
+  flex-wrap: wrap;
+ align-items: stretch;
+ align-content: stretch;
+ justify-content: space-between; 
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin-bottom: 1rem;
+  overflow-wrap:break-word;
+ 
+ 
+}
+
+.procurement-item--flex{
+  display: block;
+  flex-wrap: wrap;
+ align-items: center;
+ align-content: space-between;
+ justify-content: space-between; 
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin-bottom: 1rem;
+  overflow-wrap:break-word;
+background-color: white;
+}
+
+.procurement-item__title {
+
+min-width: 0;
+padding-left: 1rem;
+padding-right: 1rem;
+padding-top: 1rem;
+overflow-wrap: break-word;
+}
+
+
+.procurement-title {
+  overflow-wrap: break-word;
+  }
+
+.procurement-item__description {
+
+  min-width: 0;
+  padding-left: 1rem;
+padding-right: 1rem;
+padding-bottom: 1rem;
+  
+  }

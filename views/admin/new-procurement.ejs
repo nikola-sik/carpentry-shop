@@ -1,0 +1,123 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+            <% if(errorMessage) { %>
+                <div class="user-message user-message-error"><%= errorMessage %> </div>
+                <% } %>
+
+        <div class="card__actions">
+            <a class="btn" href="/admin/new-procurement-item">Dodaj Novu Stavku</a>
+        </div>
+    
+        <% if (procurement.items.length > 0) { %>
+
+
+            <div id="items_form">
+
+
+
+        <ul class="procurement-item__list">
+            <h2>Stavke nabavke:</h2>
+            <div class="note">Nabavka može imati od 1 do 20 stavki.</div>
+            <% procurement.items.forEach(p => { %>
+
+<div class="block">
+            <li class="order-item" id="item_<%= p._id %>">
+                
+                <div class="procurement-item__description">
+                    <h1><%= p.title %></h1>
+                    <div class="kolicina">Količina: <%= p.quantity %>
+                    </div>
+                </div>
+
+                
+                    
+                    <div class="procurement-item__description--bottom">
+                        <p><%= p.description %></p>
+                    </div>
+                   
+                    
+               
+                <div class="btn-box">
+                    
+
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+
+                        <button class="btn-cancel btn-corner" type="submit"
+                            onclick="if (confirm('Jeste li sigurni da želite izbrisati stavku ?')) deleteProcurementItem(this,'<%= p._id %>','<%= procurement._id %>');">Izbriši</button>
+                   
+                </div>
+               
+            </li>
+        </div>
+            <% }) %>
+        </ul>
+
+        
+        <form class="product-form" action="/admin/new-procurement" method="post" id="procurement_form" > 
+            <h2>Podaci nabavke:</h2>
+            <div class="form-control">
+                <label for="title">Naziv</label>
+                <input class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid':'' %>"
+                 type="text" name="title" id="title" maxlength="43" required value="<%= procurement.title %>">
+            </div>
+
+            <div class="form-control">
+                <label for="description">Opis</label>
+                <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid':'' %>"
+                 rows="5" name="description"  maxlength="4000" id="description"><%= procurement.description %></textarea>
+            </div>
+
+            <div class="form-control">
+                <label for="supplier">Dobavljač</label>
+                <input type="text" class="<%= validationErrors.find(e => e.param === 'supplier') ? 'invalid':'' %>"
+                 name="supplier"  maxlength="43" id="supplier" value="<%= procurement.supplier %>">
+            </div>
+
+            <div class="form-control">
+                <label for="date">Datum nabavke</label>
+                <input class="<%= validationErrors.find(e => e.param === 'date') ? 'invalid':'' %>"
+                 sytle="width: 100%;" type="date" min="<%= minDate %>" name="date" id="date"
+                 value="<%= procurement.date %>"   required>
+
+            </div>
+
+
+            <div class="form-control">
+                <label for="price">Cijena</label>
+                <input class="<%= validationErrors.find(e => e.param === 'price') ? 'invalid':'' %>"
+                type="number" name="price"  id="price" min="0" max="999999" step="0.01" value="<%= procurement.price %>">
+            </div>
+
+            <div class="centered">
+
+                <button type="submit" class="btn">Sačuvaj Nabavku</button>
+                <input name="procurementId" type="hidden" value="<%= procurement._id %>">
+              
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+
+
+        
+        </div>
+
+    <div hidden="true" id="print_no_items"> <h1 class="centered">Nema stavki u nabavki.</h1></div>
+        <% } else { %>
+         
+        <h1 class="centered">Nema stavki u nabavki.</h1>
+
+        <% } %>
+
+    </main>
+    <script src="/js/admin.js"></script>
+    <%- include('../includes/footer.ejs') %>

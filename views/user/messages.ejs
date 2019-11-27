@@ -1,0 +1,74 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/message.css">
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+    <% if(errorMessage) { %>
+    <div class="user-message user-message-error"><%= errorMessage %> </div>
+    <% } else if(infoMessage) { %>
+      <div class="user-message"><%=infoMessage %> </div>
+      <% } %>
+    <% if (messages.length > 0) { %>
+
+    <ul class="message-list">
+
+      <% messages.forEach(p => { %>
+
+
+      <li class="message-<%= (p.sender === username ) ? 'right' : 'left' %>" id="message_<%= p.id %>">
+        <div class="flex-items">
+
+          <div class="message__time">
+            <h1><%= (p.sender === username ) ? p.sender : 'salon namještaja'  %></h1>
+            <%= p.sendingTime %>
+           
+          </div>
+          <p class="text"><%= p.text %></p>
+        </div>
+
+
+
+        <div class="btn-box">
+          <% if(p.sender !== username && p.readed === 0) {  %>
+
+          <button id="btn_readed_message_<%= p.id %>" class="btn-ok" type="submit" title="Označi kao pročitanu poruku"
+            onclick="changeToReaded(this,'<%= p.id %>');"></button>
+
+          <% } %>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+
+          <button class="btn-delete btn-corner" type="submit" title="Izbriši poruku"
+            onclick="if (confirm('Jeste li sigurni da želite izbrisati poruku ?')) deleteMessage(this,'<%= p.id %>');"></button>
+
+        </div>
+
+
+
+      </li>
+
+
+      <% }) %>
+    </ul>
+    <% } %>
+    <div>
+        <hr>
+      <form class="message-form" action="/user/new-message" method="POST">
+        <div class="form-control ">
+
+          <textarea class="message__text" placeholder="Nova poruka..." rows="5" name="text" id="text" maxlength="448"
+            required></textarea>
+        </div>
+        <button class="btn-send" type="submit" title="Pošalji poruku"></button>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      </form>
+    </div>
+  </main>
+
+
+  <script src="/js/user.js"></script>
+  <%- include('../includes/footer.ejs') %>

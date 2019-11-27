@@ -1,0 +1,66 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/search.css">
+
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(infoMessage) { %>
+            <div class="user-message"><%=infoMessage %> </div>
+            <% } %>
+            
+        <% if(products.length > 0) { %>
+            <div>
+                <div id="wrap">
+                    <form action="/products" method="get" >
+                    <input id="search" name="search" type="text" maxlength="40" placeholder="Pretraga proizvoda..." required>
+                    <input id="search_submit" value="pretraga" type="submit">
+                    </form>
+                  </div>
+            </div>        
+            <div class="grid">
+            <% for (product of products) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title"><%= product.title %></h1>
+                </header>
+                <div class="card__image">
+                    <img src="<%= product.imageUrl %>" alt="">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price"><%= product.price  %> KM</h2>
+                    <p class="product__short-description"><%= product.shortDescription %></p>
+                </div>
+
+                <div class="card__actions">
+                    <a class="btn" href="/product-details/<%= product.id %>">Detalji</a>
+                    <% if(isLoggedIn) { %>
+                    <form action="/user/add-product-to-order" method="POST">
+                        <button class="btn" type="submit">Naruči</button>
+                        <input name="productId" type="hidden" value="<%= product.id %>">
+                        <input name="productTitle" type="hidden" value="<%= product.title %>">
+                        <input name="productPrice" type="hidden" value="<%= product.price %>">
+                        <input name="productDescription" type="hidden" value="<%= product.description %>">
+                        <input name="productImageUrl" type="hidden" value="<%= product.imageUrl %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    </form>
+                    <% } %>
+                </div>
+
+
+            </article>
+            <% } %>
+        </div>
+        <%- include('../includes/pagination.ejs',{currentPage:currentPage, nextPage:nextPage, previousPage:previousPage, hasNext:hasNext, hasPreviousPage:hasPreviousPage, lastPage:lastPage}) %>
+
+
+        <% } else { %>
+            <h1 class="centered">Nisu pronađeni proizvodi.</h1>
+        <% } %>
+
+    </main>
+    <%- include('../includes/footer.ejs') %>

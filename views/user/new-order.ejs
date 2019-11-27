@@ -1,0 +1,125 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/item.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } %>
+
+        <div class="card__actions">
+            <a class="btn" href="/user/new-order-item">Dodaj Novu Stavku</a>
+        </div>
+
+        <% if (order.items.length > 0) { %>
+
+
+        <div id="item_form">
+
+
+
+            <ul class="order-item__list">
+                <h2>Stavke narudžbe:</h2>
+                <div class="note">Narudžba može imati od 1 do 10 stavki.</div>
+                <% order.items.forEach(p => { %>
+
+                <div class="block">
+                    <li class="order-item" id="item_<%= p.id %>">
+                        <div class="card__image-item">
+                            <img src="<%= p.imageUrl %>" alt="">
+                        </div>
+                        <div class="order-item__title">
+                            <h1><%= p.title %></h1>
+                        </div>
+
+                        <div>
+                            <div class="quantity" id="quantity_<%= p.id %>">Količina: <%= p.quantity %>
+                            </div>
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button id="increaseQuantity" class="btn-mini"
+                                onclick="increaseQuantity(this,'<%= p.id %>')">+</button>
+
+                            <button id="decreaseQuantity" class="btn-mini"
+                                onclick="decreaseQuantity(this,'<%= p.id %>')">-</button>
+
+                            <p></p>
+
+                        </div>
+                        <div class="btn-box">
+                            <a class="btn" href="/user/order-item-details/<%= p.id %>">Detalji</a>
+
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+
+                            <button class="btn-cancel btn-corner" type="submit"
+                                onclick="if (confirm('Jeste li sigurni da želite izbrisati stavku ?')) deleteOrderItem(this,'<%= p.id %>');">Izbriši</button>
+
+                        </div>
+
+                    </li>
+                </div>
+                <% }) %>
+            </ul>
+            <div class="centered">
+                <div class="product__price">
+                    <h3 id="totalPrice">Ukupna cijena: <%= order.totalPrice %> KM</h3>
+                </div>
+            </div>
+
+
+            <form class="product-form" action="/user/save-order" method="post" id="form_order">
+                <h2>Podaci narudžbe:</h2>
+                <div class="form-control">
+                    <label for="title">Naziv</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid':'' %>" type="text"
+                        name="title" id="title" maxlength="43" required value="<%= order.title %>">
+                </div>
+
+                <div class="form-control">
+                    <label for="description">Opis</label>
+                    <textarea class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid':'' %>"
+                        rows="5" name="description" maxlength="3998"
+                        id="description" required><%= order.description %></textarea>
+                </div>
+
+
+
+                <div class="form-control">
+                    <label for="dateOfDelivery">Rok isporuke</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'dateOfDelivery') ? 'invalid':'' %>"
+                        sytle="width: 100%;" type="date" min="<%= minDate %>" name="dateOfDelivery" id="dateOfDelivery"
+                        value="<%= order.dateOfDelivery %>" required>
+
+                </div>
+
+                <div class="centered">
+
+                    <button type="submit" class="btn">Sačuvaj Narudžbu!</button>
+                    <input name="orderId" type="hidden" value="<%= order.id %>">
+                    <input name="totalPrice" type="hidden" value="<%= order.totalPrice %>">
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+
+
+
+        </div>
+
+        <div hidden="true" id="print_no_items">
+            <h1 class="centered">Nema stavki u narudžbi.</h1>
+        </div>
+        <% } else { %>
+            <div class="centered">
+        <h1 class="centered">Nema stavki u narudžbi.</h1>
+    </div>
+        <% } %>
+
+    </main>
+    <script src="/js/user.js"></script>
+    <%- include('../includes/footer.ejs') %>

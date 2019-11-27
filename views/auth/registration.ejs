@@ -1,0 +1,69 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } %>
+        <div class="registration-form">
+            <h2>Unesite podatke:</h2>
+            <label class="print-red">* obavezna polja za unos</label>
+        </div>
+        <form class="registration-form" action="/registration" method="POST">
+            <div class="form-control">
+                <label for="username">Korisničko ime</label>
+                <input class="<%= validationErrors.find(e => e.param === 'username') ? 'invalid':'' %>" type="text"
+                    name="username" id="username" maxlength="100" required value="<%= oldInput.username %>"><label
+                    style="color: red">*</label>
+            </div>
+
+            <div class="form-control">
+                <label for="password">Lozinka</label>
+                <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid':'' %>" type="password"
+                    name="password" id="password" maxlength="43" required value="<%= oldInput.password %>"><label
+                    style="color: red">*</label>
+            </div>
+
+            <div class="form-control">
+                <label for="confirmPassword">Potvrdi lozinku</label>
+                <input class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid':'' %>"
+                    type="password" name="confirmPassword" id="confirmPassword" maxlength="43" required
+                    value="<%= oldInput.confirmPassword %>"><label style="color: red">*</label>
+
+            </div>
+
+            <div class="form-control">
+                <label for="email">E-mail</label>
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid':'' %>" type="email"
+                    name="email" id="email" required value="<%= oldInput.email %>"><label style="color: red">*</label>
+
+            </div>
+
+            <div class="form-control">
+                <label for="name">Ime</label>
+                <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid':'' %>" type="text"
+                    name="name" id="name" maxlength="98" value="<%= oldInput.name %>">
+            </div>
+
+            <div class="form-control">
+                <label for="surname">Prezime</label>
+                <input class="<%= validationErrors.find(e => e.param === 'surname') ? 'invalid':'' %>" type="text"
+                    name="surname" id="surname" maxlength="98" value="<%= oldInput.surname %>">
+            </div>
+
+            <div class="form-control">
+                <label for="phoneNumber">Broj Telefona</label>
+                <input class="<%= validationErrors.find(e => e.param === 'phoneNumber') ? 'invalid':'' %>" type="text"
+                    name="phoneNumber" id="phoneNumber" maxlength="43" value="<%= oldInput.phoneNumber %>">
+            </div>
+
+            <button class="btn" type="submit">Registruj se</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+    </main>
+    <%- include('../includes/footer.ejs') %>

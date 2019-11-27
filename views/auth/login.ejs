@@ -1,0 +1,34 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } else if(infoMessage) { %>
+        <div class="user-message"><%=infoMessage %> </div>
+        <% } %>
+
+        <form class="login-form" action="/login" method="POST">
+            <div class="form-control">
+                <label for="username">Korisničko ime</label>
+                <input type="text" name="username" id="username" maxlength="100" required
+                    value="<%= oldInput.username %>">
+            </div>
+
+            <div class="form-control">
+                <label for="password">Lozinka</label>
+                <input type="password" name="password" id="password" maxlength="43" required
+                    value="<%= oldInput.password %>">
+            </div>
+
+
+            <button class="btn" type="submit">Prijavi se</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </form>
+    </main>
+    <%- include('../includes/footer.ejs') %>

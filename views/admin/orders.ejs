@@ -1,0 +1,60 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/order.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+
+
+
+        <% if(orders.length > 0) { %>
+        <div class="grid">
+
+
+
+
+            <% for (order of orders) { %>
+            <article class="card product-item">
+
+
+                <h3 class="order__status"><%= order.status  %></h3>
+                <hr>
+
+                <header class="card__header">
+                    <h1 class="order__title"><%= order.title %></h1>
+                    <h1 class="order__user">Naručilac: <%= order.username %></h1>
+                </header>
+                <div class="card__image">
+                    <img src="<%= order.imageUrl %>" alt="">
+                </div>
+                <div class="card__content">
+
+
+                    <p class="order__date">Datum kreiranja: <%= order.creationDate %></p>
+
+                    <h3 class="order__date-of-delivery">Rok isporuke: <%= order.dateOfDelivery  %></h3>
+                    <h3 class="order__price">Ukupna cijena: <%= order.totalPrice  %></h3>
+                </div>
+                <div class="card__actions">
+                    <a class="btn" href="/admin/order-details/<%= order.id %>">Detalji</a>
+                    <form action="/admin/delete-order" method="POST">
+                        <button class="btn-cancel" type="submit"
+                            onclick="return confirm('Jeste li sigurni da želite izbrisati narudžbu ?');">Izbriši</button>
+                        <input name="orderId" type="hidden" value="<%= order.id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    </form>
+                </div>
+            </article>
+            <% } %>
+
+        </div>
+        <%- include('../includes/pagination.ejs',{currentPage:currentPage, nextPage:nextPage, previousPage:previousPage, hasNext:hasNext, hasPreviousPage:hasPreviousPage, lastPage:lastPage}) %>
+
+        <% } else { %>
+        <h1>Nemate narudzbi.</h1>
+        <% } %>
+    </main>
+    <%- include('../includes/footer.ejs') %>

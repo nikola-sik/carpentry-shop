@@ -1,0 +1,83 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/message.css">
+<link rel="stylesheet" href="/css/edit-data.css">
+
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } else if(infoMessage) { %>
+        <div class="user-message"><%=infoMessage %> </div>
+        <% } %>
+        
+        <div class="centered">
+            <h3> Korisničko ime: <%= username %></h3>
+        </div>
+
+        <div class="centered">
+            <h3> Email: <%= email %></h3>
+        </div>
+        <hr>
+        <div class="grid">
+            <form class="edit-data__form" action="/user/change-password" method="POST">
+
+                <div class="form-control">
+                    <label for="oldPassword">Stara lozinka</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'oldPassword') ? 'invalid':'' %>"
+                        type="password" name="oldPassword" id="oldPassword" maxlength="43" required
+                        value="<%= oldInput.oldPassword %>">
+                </div>
+
+                <div class="form-control">
+                    <label for="newPassword">Nova lozinka</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'newPassword') ? 'invalid':'' %>"
+                        type="password" name="newPassword" id="newPassword" maxlength="43" required
+                        value="<%= oldInput.newPassword %>">
+                </div>
+
+                <div class="form-control">
+                    <label for="confirmationNewPassword">Potvrdi novu lozinku</label>
+                    <input
+                        class="<%= validationErrors.find(e => e.param === 'confirmationNewPassword') ? 'invalid':'' %>"
+                        type="password" name="confirmationNewPassword" id="confirmationNewPassword" maxlength="43"
+                        required value="<%= oldInput.confirmationNewPassword %>">
+
+                </div>
+                <button class="btn btn__text" type="submit">Sačuvaj lozinku</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            </form>
+            <form class="edit-data__form" action="/user/edit-user-data" method="POST">
+
+
+                <div class="form-control">
+                    <label for="name">Ime</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid':'' %>" type="text"
+                        name="name" id="name" maxlength="98" value="<%= oldInput.name %>">
+                </div>
+
+                <div class="form-control">
+                    <label for="surname">Prezime</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'surname') ? 'invalid':'' %>" type="text"
+                        name="surname" id="surname" maxlength="98" value="<%= oldInput.surname %>">
+                </div>
+
+                <div class="form-control">
+                    <label for="phoneNumber">Broj Telefona</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'phoneNumber') ? 'invalid':'' %>"
+                        type="text" name="phoneNumber" id="phoneNumber" maxlength="43"
+                        value="<%= oldInput.phoneNumber %>">
+                </div>
+
+                <button class="btn" type="submit">Sačuvaj izmjene</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/user.js"></script>
+    <%- include('../includes/footer.ejs') %>

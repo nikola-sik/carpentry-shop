@@ -1,0 +1,24 @@
+{
+    "env":{
+        "MONGODB_STRING": "mongodb+srv://student:etfbl2019@cluster0-ykapz.mongodb.net/carpentry_shop?retryWrites=true&w=majority",
+        "FACEBOOK": "#",
+        "INSTAGRAM": "#",
+        "MY_LINK": "#",
+        "PHONE_NUMBER": "+000 00 000 000",
+        "SHOP_EMAIL": "stolarska.radnja.sikanjic@test.com",
+        "ADDRESS": "Jošavka Donja 78244 BB, Čelinac, BIH",
+        
+        "host": "localhost",
+        "MYSQL_USER": "root",
+        "DATABASE_NAME": "carpentry_shop",
+        "MYSQL_PASSWORD": "student",
+
+        "SEND_GRID_KEY": "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",
+
+        "ADDRESS_PLACE": "Jošavka Donja BB",
+        "ADDRESS_CITY": "Čelinac",
+
+        "ITEMS_BY_PAGE": 4,
+        "URL_AND_PORT": "http://127.0.0.1:3000"
+    }
+}
