@@ -197,6 +197,7 @@ input[type=search] {
   padding: 2rem 1rem 1rem 2rem;
   transform: translateX(-100%);
   transition: transform 0.3s ease-out;
+  opacity: 0.8;
 }
 
 .mobile-nav.open {
