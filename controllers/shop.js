@@ -102,17 +102,11 @@ exports.getProductDetails = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
 
-    Product.fetchAll()
-        .then(([rows, fieldData]) => {
             res.render('shop/index', {
                 pageTitle: 'Početna',
-                products: rows,
                 path: '/'
             });
-        })
-        .catch(err => error.get500Error(err, next));
-
-
+   
 }
 
 
