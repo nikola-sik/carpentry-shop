@@ -127,7 +127,7 @@ module.exports = class Order {
 
 
     static fetchByPageAdmin(limit, offset) {
-        return db.execute('SELECT * FROM orders WHERE orders.deleted=0 AND orders.status != "nova" LIMIT ? OFFSET ?', [ limit, offset]);
+        return db.execute('SELECT orders.id,title, description, creationDate, dateOfDelivery, status, totalPrice, reasonForRefusal, visibleToUser, orders.deleted, personId, username FROM orders join persons on orders.personId = persons.id WHERE orders.deleted=0 AND orders.status != "nova" LIMIT ? OFFSET ?', [ limit, offset]);
 
     }
 
