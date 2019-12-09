@@ -32,7 +32,7 @@ const ADDRESS = `${process.env.ADDRESS}`;
 app = express();
 const csrfProtection = csrf();
 
-const storeSession = new MongoDBStore({ //definidanje baze gdje se čuva sesija
+const storeSession = new MongoDBStore({ //definisanje baze gdje se čuva sesija
   uri: MONGODB_URI,
   collection: 'sessions'
 });
@@ -79,8 +79,7 @@ app.use((req, res, next) => {
     })
 });
 app.use(express.static(path.join(__dirname, 'public'))); // setovanje public resursa
-//app.use (express.static(path.join(__dirname,'images')));
-app.use(session({ //setovanje session i baze za sesiju, čita i upisuje session cookie automatski
+app.use(session({ //setovanje sesije i baze za sesiju, čita i upisuje session cookie automatski
   secret: 'treba da bude neki dugi string',
   resave: false,
   saveUninitialized: false,

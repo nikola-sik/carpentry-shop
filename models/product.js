@@ -46,6 +46,10 @@ module.exports = class Product {
 
     }
 
+    static fetchForREST() {
+        return db.execute('SELECT id, title, price, imageUrl, shortDescription, description FROM products where deleted=0');
+    }
+
     static deleteById(id) {
 
         return db.execute('UPDATE products SET deleted=1 WHERE products.id=?', [id]);
