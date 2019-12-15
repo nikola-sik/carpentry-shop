@@ -1,6 +1,6 @@
 {
     "env":{
-        "MONGODB_STRING": "mongodb+srv://student:etfbl2019@cluster0-ykapz.mongodb.net/carpentry_shop?retryWrites=true&w=majority",
+        "MONGODB_STRING": "mongodb+srv://username:password@cluster0-ykapz.mongodb.net/carpentry_shop?retryWrites=true&w=majority",
         "FACEBOOK": "#",
         "INSTAGRAM": "#",
         "MY_LINK": "#",
@@ -9,11 +9,11 @@
         "ADDRESS": "Jošavka Donja 78244 BB, Čelinac, BIH",
         
         "HOST": "remotemysql.com",
-        "MYSQL_USER": "dVfTCKh0ea",
-        "DATABASE_NAME": "dVfTCKh0ea",
-        "MYSQL_PASSWORD": "MID1Hz1K7M",
+        "MYSQL_USER": "user",
+        "DATABASE_NAME": "name",
+        "MYSQL_PASSWORD": "password",
 
-        "SEND_GRID_KEY": "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",
+        "SEND_GRID_KEY": "api_key",
 
         "ADDRESS_PLACE": "Jošavka Donja BB",
         "ADDRESS_CITY": "Čelinac",
